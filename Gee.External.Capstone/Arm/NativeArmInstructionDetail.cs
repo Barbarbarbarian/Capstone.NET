@@ -51,6 +51,12 @@ internal struct NativeArmInstructionDetail {
     public bool WriteBack;
 
     /// <summary>
+    ///     Post Index Flag.
+    /// </summary>
+    [MarshalAs(UnmanagedType.I1)]
+    public bool PostIndex;
+
+    /// <summary>
     ///     Memory Barrier Operation Operation.
     /// </summary>
     public ArmMemoryBarrierOperation MemoryBarrierOperation;

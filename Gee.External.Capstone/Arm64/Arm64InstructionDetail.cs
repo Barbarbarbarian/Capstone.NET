@@ -25,6 +25,11 @@ public sealed class Arm64InstructionDetail : InstructionDetail<Arm64InstructionD
     public bool WriteBack { get; }
 
     /// <summary>
+    ///     Get Post Index Flag.
+    /// </summary>
+    public bool PostIndex { get; }
+
+    /// <summary>
     ///     Create an ARM64 Instruction Detail.
     /// </summary>
     /// <param name="disassembler">
@@ -54,5 +59,6 @@ public sealed class Arm64InstructionDetail : InstructionDetail<Arm64InstructionD
         this.Operands = builder.Operands;
         this.UpdateFlags = builder.UpdateFlags;
         this.WriteBack = builder.WriteBack;
+        this.PostIndex = builder.PostIndex;
     }
 }

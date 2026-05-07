@@ -79,7 +79,7 @@ internal sealed class XCoreInstructionDetailBuilder : InstructionDetailBuilder<X
     /// <returns>
     ///     A register.
     /// </returns>
-    private protected override XCoreRegister CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override XCoreRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return XCoreRegister.TryCreate(disassembler, (XCoreRegisterId)registerId);
     }
 }

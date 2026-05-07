@@ -11,5 +11,8 @@ public enum DisassembleSyntax {
     Intel = NativeDisassemblerOptionValue.UseIntelDisassembleSyntax,
 
     /// <inheritdoc cref="NativeDisassemblerOptionValue.UseMasmDisassembleSyntax" />
-    Masm = NativeDisassemblerOptionValue.UseMasmDisassembleSyntax
+    Masm = NativeDisassemblerOptionValue.UseMasmDisassembleSyntax,
+
+    /// <inheritdoc cref="NativeDisassemblerOptionValue.UseMotorolaDisassembleSyntax" />
+    Motorola = NativeDisassemblerOptionValue.UseMotorolaDisassembleSyntax
 }

@@ -54,4 +54,10 @@ internal struct NativeArm64OperandValue {
     /// </summary>
     [FieldOffset(0)]
     public Arm64BarrierOperation BarrierOperation;
+
+    /// <summary>
+    ///     SME Index Value.
+    /// </summary>
+    [FieldOffset(0)]
+    public NativeArm64SmeIndexOperandValue SmeIndex;
 }

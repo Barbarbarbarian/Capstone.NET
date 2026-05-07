@@ -51,7 +51,7 @@ internal static class NativeCapstone {
     ///         Capstone.NET API and are instead read manually from this offset.
     ///     </para>
     /// </remarks>
-    private const int MagicInstructionArchitectureDetailsFieldOffset = 80;
+    private const int MagicInstructionArchitectureDetailsFieldOffset = 96;
 
     /// <summary>
     ///     Create a Native Capstone.
@@ -165,13 +165,13 @@ internal static class NativeCapstone {
     /// <exception cref="System.ObjectDisposedException">
     ///     Thrown if the disassembler handle is disposed, or if the instruction handle is disposed.
     /// </exception>
-    internal static Tuple<short[], short[]> GetAccessedRegisters(NativeDisassemblerHandle hDisassembler, NativeInstructionHandle hInstruction) {
+    internal static Tuple<ushort[], ushort[]> GetAccessedRegisters(NativeDisassemblerHandle hDisassembler, NativeInstructionHandle hInstruction) {
         // ...
         //
         // Throws an exception if the operation fails.
-        var readRegisters = new short[64];
+        var readRegisters = new ushort[64];
         byte readRegistersCount = 0;
-        var writtenRegisters = new short[64];
+        var writtenRegisters = new ushort[64];
         byte writtenRegistersCount = 0;
         var resultCode = NativeCapstoneImport.GetAccessedRegisters(hDisassembler, hInstruction, readRegisters, ref readRegistersCount, writtenRegisters, ref writtenRegistersCount);
         if (resultCode != NativeCapstoneResultCode.Ok) {
@@ -205,8 +205,8 @@ internal static class NativeCapstone {
             }
         }
 
-        var newReadRegisters = new short[readRegistersCount];
-        var newWrittenRegisters = new short[writtenRegistersCount];
+        var newReadRegisters = new ushort[readRegistersCount];
+        var newWrittenRegisters = new ushort[writtenRegistersCount];
         Array.Copy(readRegisters, newReadRegisters, newReadRegisters.Length);
         Array.Copy(writtenRegisters, newWrittenRegisters, newWrittenRegisters.Length);
 

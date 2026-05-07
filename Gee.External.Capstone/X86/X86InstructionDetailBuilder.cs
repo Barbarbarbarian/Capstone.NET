@@ -187,7 +187,7 @@ internal sealed class X86InstructionDetailBuilder : InstructionDetailBuilder<X86
     /// <returns>
     ///     An X86 register.
     /// </returns>
-    private protected override X86Register CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override X86Register CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return X86Register.TryCreate(disassembler, (X86RegisterId)registerId);
     }
 }

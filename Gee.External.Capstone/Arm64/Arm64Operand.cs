@@ -82,6 +82,16 @@ public sealed class Arm64Operand {
     private readonly Arm64TlbiOperation _tlbiOperation;
 
     /// <summary>
+    ///     SVCR Operation.
+    /// </summary>
+    private readonly Arm64SvcrOp _svcr;
+
+    /// <summary>
+    ///     SME Index Value.
+    /// </summary>
+    private readonly Arm64SmeIndexOperandValue _smeIndex;
+
+    /// <summary>
     ///     Get Operand's Access Type.
     /// </summary>
     /// <remarks>
@@ -441,14 +451,55 @@ public sealed class Arm64Operand {
     public Arm64OperandType Type { get; }
 
     /// <summary>
+    ///     Get SVCR Operation.
+    /// </summary>
+    /// <remarks>
+    ///     Represents the operand's SVCR operation if, and only if, the operand's type is
+    ///     <see cref="Arm64OperandType.Svcr" />. To determine the operand's type, call
+    ///     <see cref="Type" />.
+    /// </remarks>
+    /// <exception cref="System.InvalidOperationException">
+    ///     Thrown if the operand's type is not <see cref="Arm64OperandType.Svcr" />.
+    /// </exception>
+    public Arm64SvcrOp Svcr {
+        get {
+            if (this.Type != Arm64OperandType.Svcr) {
+                const string valueName = nameof(Arm64Operand.Svcr);
+                var detailMessage = $"A value ({valueName}) is invalid when the type is ({this.Type}).";
+                throw new System.InvalidOperationException(detailMessage);
+            }
+
+            return this._svcr;
+        }
+    }
+
+    /// <summary>
+    ///     Get SME Index Value.
+    /// </summary>
+    /// <remarks>
+    ///     Represents the operand's SME index value if, and only if, the operand's type is
+    ///     <see cref="Arm64OperandType.SmeIndex" />. To determine the operand's type, call
+    ///     <see cref="Type" />.
+    /// </remarks>
+    /// <exception cref="System.InvalidOperationException">
+    ///     Thrown if the operand's type is not <see cref="Arm64OperandType.SmeIndex" />.
+    /// </exception>
+    public Arm64SmeIndexOperandValue SmeIndex {
+        get {
+            if (this.Type != Arm64OperandType.SmeIndex) {
+                const string valueName = nameof(Arm64Operand.SmeIndex);
+                var detailMessage = $"A value ({valueName}) is invalid when the type is ({this.Type}).";
+                throw new System.InvalidOperationException(detailMessage);
+            }
+
+            return this._smeIndex;
+        }
+    }
+
+    /// <summary>
     ///     Get Vector Arrangement Specifier.
     /// </summary>
     public Arm64VectorArrangementSpecifier VectorArrangementSpecifier { get; }
-
-    /// <summary>
-    ///     Get Vector Element Size Specifier.
-    /// </summary>
-    public Arm64VectorElementSizeSpecifier VectorElementSizeSpecifier { get; }
 
     /// <summary>
     ///     Get Vector Index.
@@ -498,7 +549,6 @@ public sealed class Arm64Operand {
         this.ShiftOperation = nativeOperand.Shift.Operation;
         this.Type = nativeOperand.Type;
         this.VectorArrangementSpecifier = nativeOperand.VectorArrangementSpecifier;
-        this.VectorElementSizeSpecifier = nativeOperand.VectorElementSizeSpecifier;
         this.VectorIndex = nativeOperand.VectorIndex;
         // ...
         //
@@ -537,6 +587,12 @@ public sealed class Arm64Operand {
                 break;
             case Arm64OperandType.Register:
                 this._register = Arm64Register.TryCreate(disassembler, nativeOperand.Value.Register);
+                break;
+            case Arm64OperandType.SmeIndex:
+                this._smeIndex = new Arm64SmeIndexOperandValue(disassembler, ref nativeOperand.Value.SmeIndex);
+                break;
+            case Arm64OperandType.Svcr:
+                this._svcr = (Arm64SvcrOp)nativeOperand.Svcr;
                 break;
             case Arm64OperandType.SystemOperation:
                 switch (instructionId) {

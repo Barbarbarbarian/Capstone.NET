@@ -35,6 +35,11 @@ internal sealed class ArmInstructionDetailBuilder : InstructionDetailBuilder<Arm
     internal ArmOperand[] Operands { get; private set; }
 
     /// <summary>
+    ///     Get and Set Post Index Flag.
+    /// </summary>
+    internal bool PostIndex { get; private set; }
+
+    /// <summary>
     ///     Get and Set Update Flags Flag.
     /// </summary>
     internal bool UpdateFlags { get; private set; }
@@ -76,6 +81,7 @@ internal sealed class ArmInstructionDetailBuilder : InstructionDetailBuilder<Arm
         this.IsUserMode = nativeInstructionDetail.IsUserMode;
         this.MemoryBarrierOperation = nativeInstructionDetail.MemoryBarrierOperation;
         this.Operands = ArmOperand.Create(disassembler, ref nativeInstructionDetail);
+        this.PostIndex = nativeInstructionDetail.PostIndex;
         this.UpdateFlags = nativeInstructionDetail.UpdateFlags;
         this.VectorDataType = nativeInstructionDetail.VectorDataType;
         this.VectorSize = nativeInstructionDetail.VectorSize;
@@ -133,7 +139,7 @@ internal sealed class ArmInstructionDetailBuilder : InstructionDetailBuilder<Arm
     /// <returns>
     ///     An ARM register.
     /// </returns>
-    private protected override ArmRegister CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override ArmRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return ArmRegister.TryCreate(disassembler, (ArmRegisterId)registerId);
     }
 }

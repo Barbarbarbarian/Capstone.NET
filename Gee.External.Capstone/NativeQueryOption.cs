@@ -65,6 +65,36 @@ internal enum NativeQueryOption {
     QueryEvmArchitecture = DisassembleArchitecture.Evm,
 
     /// <summary>
+    ///     Query MOS65XX Architecture.
+    /// </summary>
+    QueryMos65XXArchitecture = DisassembleArchitecture.Mos65XX,
+
+    /// <summary>
+    ///     Query WebAssembly Architecture.
+    /// </summary>
+    QueryWasmArchitecture = DisassembleArchitecture.Wasm,
+
+    /// <summary>
+    ///     Query Berkeley Packet Filter Architecture.
+    /// </summary>
+    QueryBpfArchitecture = DisassembleArchitecture.Bpf,
+
+    /// <summary>
+    ///     Query RISC-V Architecture.
+    /// </summary>
+    QueryRiscvArchitecture = DisassembleArchitecture.Riscv,
+
+    /// <summary>
+    ///     Query SuperH Architecture.
+    /// </summary>
+    QueryShArchitecture = DisassembleArchitecture.Sh,
+
+    /// <summary>
+    ///     Query TriCore Architecture.
+    /// </summary>
+    QueryTriCoreArchitecture = DisassembleArchitecture.TriCore,
+
+    /// <summary>
     ///     Query All Architectures.
     /// </summary>
     QueryAllArchitectures = 0xFFFF,

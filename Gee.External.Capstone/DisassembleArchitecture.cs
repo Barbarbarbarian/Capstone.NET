@@ -62,5 +62,35 @@ public enum DisassembleArchitecture {
     /// <summary>
     ///     Ethereum EVM Architecture.
     /// </summary>
-    Evm
+    Evm,
+
+    /// <summary>
+    ///     MOS65XX Architecture (including MOS6502).
+    /// </summary>
+    Mos65XX,
+
+    /// <summary>
+    ///     WebAssembly Architecture.
+    /// </summary>
+    Wasm,
+
+    /// <summary>
+    ///     Berkeley Packet Filter Architecture (including eBPF).
+    /// </summary>
+    Bpf,
+
+    /// <summary>
+    ///     RISC-V Architecture.
+    /// </summary>
+    Riscv,
+
+    /// <summary>
+    ///     SuperH Architecture.
+    /// </summary>
+    Sh,
+
+    /// <summary>
+    ///     TriCore Architecture.
+    /// </summary>
+    TriCore
 }

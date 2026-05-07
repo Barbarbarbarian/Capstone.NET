@@ -55,6 +55,11 @@ public enum Arm64OperandType {
     SystemOperation,
 
     /// <summary>
+    ///     Indicates an SVCR operand.
+    /// </summary>
+    Svcr,
+
+    /// <summary>
     ///     Indicates a prefetch operation operand.
     /// </summary>
     PrefetchOperation,
@@ -63,6 +68,11 @@ public enum Arm64OperandType {
     ///     Indicates a barrier operation operand.
     /// </summary>
     BarrierOperation,
+
+    /// <summary>
+    ///     Indicates an SME index operand.
+    /// </summary>
+    SmeIndex,
 
     /// <summary>
     ///     Indicates an Address Translation (AT) operation.

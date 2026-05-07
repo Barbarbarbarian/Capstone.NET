@@ -13,8 +13,8 @@ internal struct NativeInstructionDetail {
     /// <summary>
     ///     Implicitly Read Registers.
     /// </summary>
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
-    public short[] ImplicitlyReadRegisters;
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
+    public ushort[] ImplicitlyReadRegisters;
 
     /// <summary>
     ///     Implicitly Read Registers' Count.
@@ -25,7 +25,7 @@ internal struct NativeInstructionDetail {
     ///     Implicitly Written Registers.
     /// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
-    public short[] ImplicitlyWrittenRegisters;
+    public ushort[] ImplicitlyWrittenRegisters;
 
     /// <summary>
     ///     Implicitly Written Registers' Count.
@@ -42,4 +42,10 @@ internal struct NativeInstructionDetail {
     ///     Instruction's Groups' Count.
     /// </summary>
     public byte GroupCount;
+
+    /// <summary>
+    ///     Writeback Flag.
+    /// </summary>
+    [MarshalAs(UnmanagedType.I1)]
+    public bool Writeback;
 }

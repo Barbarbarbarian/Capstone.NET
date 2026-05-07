@@ -97,7 +97,7 @@ internal sealed class PowerPcInstructionDetailBuilder : InstructionDetailBuilder
     /// <returns>
     ///     A PowerPC register.
     /// </returns>
-    private protected override PowerPcRegister CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override PowerPcRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return PowerPcRegister.TryCreate(disassembler, (PowerPcRegisterId)registerId);
     }
 }

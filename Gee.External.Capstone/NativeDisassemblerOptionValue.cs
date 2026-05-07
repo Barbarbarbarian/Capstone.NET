@@ -46,9 +46,21 @@ internal enum NativeDisassemblerOptionValue {
     UseAttDisassembleSyntax,
 
     /// <summary>
+    ///     Indicates a disassembler should print register names with only numbers. This member is equivalent
+    ///     to <c>CS_OPT_SYNTAX_NOREGNAME</c> in the Capstone API.
+    /// </summary>
+    UseNoRegNameDisassembleSyntax,
+
+    /// <summary>
     ///     Indicates a disassembler should use MASM syntax for generated assembly code. This member can only be
     ///     used with <see cref="NativeDisassemblerOptionType.SetDisassembleSyntax" />. This member is equivalent
     ///     to <c>CS_OPT_SYNTAX_MASM</c> in the Capstone API.
     /// </summary>
-    UseMasmDisassembleSyntax
+    UseMasmDisassembleSyntax,
+
+    /// <summary>
+    ///     Indicates a disassembler should use Motorola syntax ($ hex prefix). This member is equivalent
+    ///     to <c>CS_OPT_SYNTAX_MOTOROLA</c> in the Capstone API.
+    /// </summary>
+    UseMotorolaDisassembleSyntax
 }

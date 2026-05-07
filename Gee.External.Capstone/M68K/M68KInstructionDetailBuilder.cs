@@ -85,7 +85,7 @@ internal sealed class M68KInstructionDetailBuilder : InstructionDetailBuilder<M6
     /// <returns>
     ///     A register.
     /// </returns>
-    private protected override M68KRegister CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override M68KRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return M68KRegister.TryCreate(disassembler, (M68KRegisterId)registerId);
     }
 }

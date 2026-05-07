@@ -74,6 +74,11 @@ internal abstract class InstructionDetailBuilder<TDetail, TDisassembleMode, TGro
     internal TRegister[] ImplicitlyWrittenRegisters { get; private set; }
 
     /// <summary>
+    ///     Get and Set Writeback Flag.
+    /// </summary>
+    internal bool Writeback { get; private set; }
+
+    /// <summary>
     ///     Build an Instruction Detail.
     /// </summary>
     /// <param name="disassembler">
@@ -141,6 +146,8 @@ internal abstract class InstructionDetailBuilder<TDetail, TDisassembleMode, TGro
                     @this.Groups[cI] = @this.CreateInstructionGroup(cDisassembler, cGroup);
                 }
             }
+
+            @this.Writeback = cNativeInstructionDetail.Writeback;
         }
 
         // <summary>
@@ -207,5 +214,5 @@ internal abstract class InstructionDetailBuilder<TDetail, TDisassembleMode, TGro
     /// <returns>
     ///     A register.
     /// </returns>
-    private protected abstract TRegister CreateRegister(CapstoneDisassembler disassembler, short registerId);
+    private protected abstract TRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId);
 }

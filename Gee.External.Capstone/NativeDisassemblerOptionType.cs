@@ -62,5 +62,6 @@ internal enum NativeDisassemblerOptionType {
     ///     <c>CS_OPT_MNEMONIC</c> in the Capstone API.
     /// </summary>
     SetInstructionMnemonic,
-    SetUnsigned
+    SetUnsigned,
+    SetNoBranchOffset
 }

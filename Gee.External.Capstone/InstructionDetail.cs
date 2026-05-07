@@ -260,6 +260,14 @@ public abstract class InstructionDetail<TSelf, TDisassembleMode, TGroup, TGroupI
     public bool IsDietModeEnabled => CapstoneDisassembler.IsDietModeEnabled;
 
     /// <summary>
+    ///     Determine if Instruction has Writeback.
+    /// </summary>
+    /// <remarks>
+    ///     Indicates if the instruction has writeback operands.
+    /// </remarks>
+    public bool Writeback { get; }
+
+    /// <summary>
     ///     Create a Disassembled Instruction Detail.
     /// </summary>
     /// <param name="builder">
@@ -275,6 +283,7 @@ public abstract class InstructionDetail<TSelf, TDisassembleMode, TGroup, TGroupI
         this._groups = builder.Groups;
         this._implicitlyReadRegisters = builder.ImplicitlyReadRegisters;
         this._implicitlyWrittenRegisters = builder.ImplicitlyWrittenRegisters;
+        this.Writeback = builder.Writeback;
     }
 
     /// <summary>

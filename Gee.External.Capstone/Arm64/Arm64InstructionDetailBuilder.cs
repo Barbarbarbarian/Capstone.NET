@@ -25,6 +25,11 @@ internal sealed class Arm64InstructionDetailBuilder : InstructionDetailBuilder<A
     internal bool WriteBack { get; private set; }
 
     /// <summary>
+    ///     Get and Set Post Index Flag.
+    /// </summary>
+    internal bool PostIndex { get; private set; }
+
+    /// <summary>
     ///     Build an Instruction Detail.
     /// </summary>
     /// <param name="disassembler">
@@ -45,6 +50,7 @@ internal sealed class Arm64InstructionDetailBuilder : InstructionDetailBuilder<A
         this.Operands = Arm64Operand.Create(disassembler, (Arm64InstructionId)nativeInstruction.Id, ref nativeInstructionDetail);
         this.UpdateFlags = nativeInstructionDetail.UpdateFlags;
         this.WriteBack = nativeInstructionDetail.WriteBack;
+        this.PostIndex = nativeInstructionDetail.PostIndex;
     }
 
     /// <summary>
@@ -98,7 +104,7 @@ internal sealed class Arm64InstructionDetailBuilder : InstructionDetailBuilder<A
     /// <returns>
     ///     An ARM64 register.
     /// </returns>
-    private protected override Arm64Register CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override Arm64Register CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return Arm64Register.TryCreate(disassembler, (Arm64RegisterId)registerId);
     }
 }

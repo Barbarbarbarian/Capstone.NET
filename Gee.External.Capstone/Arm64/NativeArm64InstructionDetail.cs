@@ -25,6 +25,12 @@ internal struct NativeArm64InstructionDetail {
     public bool WriteBack;
 
     /// <summary>
+    ///     Post Index Flag.
+    /// </summary>
+    [MarshalAs(UnmanagedType.I1)]
+    public bool PostIndex;
+
+    /// <summary>
     ///     Instruction's Operand Count.
     /// </summary>
     public byte OperandCount;

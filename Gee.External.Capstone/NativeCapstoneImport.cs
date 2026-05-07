@@ -124,7 +124,7 @@ internal static class NativeCapstoneImport {
     ///     Thrown if the disassembler handle is disposed, or if the instruction handle is disposed.
     /// </exception>
     [DllImport("capstone", CallingConvention = CallingConvention.Cdecl, EntryPoint = "cs_regs_access")]
-    internal static extern NativeCapstoneResultCode GetAccessedRegisters(NativeDisassemblerHandle hDisassembler, NativeInstructionHandle hInstruction, short[] readRegisters, ref byte readRegistersCount, short[] writtenRegisters, ref byte writtenRegistersCount);
+    internal static extern NativeCapstoneResultCode GetAccessedRegisters(NativeDisassemblerHandle hDisassembler, NativeInstructionHandle hInstruction, ushort[] readRegisters, ref byte readRegistersCount, ushort[] writtenRegisters, ref byte writtenRegistersCount);
 
     /// <summary>
     ///     Get an Instruction Group's Name.
@@ -158,6 +158,18 @@ internal static class NativeCapstoneImport {
     /// </exception>
     [DllImport("capstone", CallingConvention = CallingConvention.Cdecl, EntryPoint = "cs_errno")]
     internal static extern NativeCapstoneResultCode GetLastErrorCode(NativeDisassemblerHandle hDisassembler);
+
+    /// <summary>
+    ///     Get Error Description.
+    /// </summary>
+    /// <param name="resultCode">
+    ///     A result code.
+    /// </param>
+    /// <returns>
+    ///     A pointer to an ASCII string describing the error code.
+    /// </returns>
+    [DllImport("capstone", CallingConvention = CallingConvention.Cdecl, EntryPoint = "cs_strerror")]
+    internal static extern IntPtr GetErrorDescription(NativeCapstoneResultCode resultCode);
 
     /// <summary>
     ///     Get a Register's Name.

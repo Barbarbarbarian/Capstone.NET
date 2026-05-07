@@ -18,11 +18,6 @@ internal struct NativeArm64Operand {
     public Arm64VectorArrangementSpecifier VectorArrangementSpecifier;
 
     /// <summary>
-    ///     Vector Element Size Specifier.
-    /// </summary>
-    public Arm64VectorElementSizeSpecifier VectorElementSizeSpecifier;
-
-    /// <summary>
     ///     Shift.
     /// </summary>
     public NativeArm64OperandShift Shift;
@@ -36,6 +31,11 @@ internal struct NativeArm64Operand {
     ///     Operand's Type.
     /// </summary>
     public Arm64OperandType Type;
+
+    /// <summary>
+    ///     SVCR Operation.
+    /// </summary>
+    public int Svcr;
 
     /// <summary>
     ///     Operand's Value.

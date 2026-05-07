@@ -79,7 +79,7 @@ internal sealed class MipsInstructionDetailBuilder : InstructionDetailBuilder<Mi
     /// <returns>
     ///     A register.
     /// </returns>
-    private protected override MipsRegister CreateRegister(CapstoneDisassembler disassembler, short registerId) {
+    private protected override MipsRegister CreateRegister(CapstoneDisassembler disassembler, ushort registerId) {
         return MipsRegister.TryCreate(disassembler, (MipsRegisterId)registerId);
     }
 }

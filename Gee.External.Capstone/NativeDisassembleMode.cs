@@ -78,6 +78,23 @@ internal enum NativeDisassembleMode {
     PowerPcQuadProcessingExtensions = 1 << 4,
 
     /// <summary>
+    ///     Indicates binary code should be disassembled with support for the PowerPC Signal Processing
+    ///     Engine instruction sets.
+    /// </summary>
+    PowerPcSignalProcessingEngine = 1 << 5,
+
+    /// <summary>
+    ///     Indicates binary code should be disassembled with support for the PowerPC Book-E instruction sets.
+    /// </summary>
+    PowerPcBookE = 1 << 6,
+
+    /// <summary>
+    ///     Indicates binary code should be disassembled with support for the PowerPC Paired-Singles
+    ///     instruction sets.
+    /// </summary>
+    PowerPcPairedSingles = 1 << 7,
+
+    /// <summary>
     ///     Indicates binary code should be disassembled with support for the M68K000 instruction set.
     /// </summary>
     M68K000 = 1 << 1,

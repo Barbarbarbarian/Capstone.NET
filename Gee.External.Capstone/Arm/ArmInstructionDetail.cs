@@ -50,6 +50,11 @@ public sealed class ArmInstructionDetail : InstructionDetail<ArmInstructionDetai
     public int VectorSize { get; }
 
     /// <summary>
+    ///     Get Post Index Flag.
+    /// </summary>
+    public bool PostIndex { get; }
+
+    /// <summary>
     ///     Get Write Back Flag.
     /// </summary>
     public bool WriteBack { get; }
@@ -86,6 +91,7 @@ public sealed class ArmInstructionDetail : InstructionDetail<ArmInstructionDetai
         this.MemoryBarrierOperation = builder.MemoryBarrierOperation;
         this.IsUserMode = builder.IsUserMode;
         this.Operands = builder.Operands;
+        this.PostIndex = builder.PostIndex;
         this.UpdateFlags = builder.UpdateFlags;
         this.VectorDataType = builder.VectorDataType;
         this.VectorSize = builder.VectorSize;

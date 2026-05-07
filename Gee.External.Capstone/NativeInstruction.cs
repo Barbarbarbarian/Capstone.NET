@@ -29,7 +29,7 @@ internal struct NativeInstruction {
     /// <summary>
     ///     Instruction's Machine Bytes.
     /// </summary>
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
     public byte[] Bytes;
 
     /// <summary>
