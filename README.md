@@ -1,20 +1,38 @@
 # Capstone.NET
-Capstone.NET is an opinionated .NET Core and a .NET Framework binding for the [Capstone disassembly framework](http://www.capstone-engine.org). It is written in C#, supports _Capstone 4_, and has a friendly and simple type safe API that is ridiculously easy to learn and quick to pick up.
+Capstone.NET is an opinionated .NET binding for the [Capstone disassembly framework](http://www.capstone-engine.org). It is written in C#, supports _Capstone 5_, and has a friendly and simple type safe API that is ridiculously easy to learn and quick to pick up.
 
-[![Nuget](https://img.shields.io/nuget/dt/Gee.External.Capstone?label=Capstone.NET%20V2.3.0&style=for-the-badge)](https://www.nuget.org/packages/Gee.External.Capstone)
+This is a fork of the original [Capstone.NET](https://github.com/9ee1/Capstone.NET) by Ahmed Garhy, updated to target Capstone 5.0.7 and modern .NET versions.
 
 ## Features
-* Supports _Capstone 4_. Only the ARM, ARM64, M68K, MIPS, PowerPC, X86, and XCore architectures are supported right now
+* Supports _Capstone 5.0.7_. Only the ARM, ARM64, M68K, MIPS, PowerPC, X86, and XCore architectures are supported right now
 
-* Supports _.NET 5_ and greater, and _.NET Framework 4.6.1_ and greater
+* Supports _.NET 6_ and greater, and _.NET Framework 4.6.1_ and greater (via .NET Standard 2.0)
 
-* A friendly and simple to use type safe API that is ridiculously easy to learn and pick up
+* A friendly and simple to use type safe API that is ridiculously easy to learn and quick to pick up
 
 ## Installation
-Either open the NuGet Package Manager in Visual Studio and search for "Capstone.NET" or head over to the [NuGet website](https://www.nuget.org/packages/Gee.External.Capstone) and download the NuGet package yourself. The NuGet package bundles Capstone. You can also clone this repository and build Capstone.NET yourself.
+Clone this repository and build the NuGet package locally:
+
+```
+dotnet build Gee.External.Capstone/Gee.External.Capstone.csproj -c Release
+dotnet pack Gee.External.Capstone/Gee.External.Capstone.csproj -c Release -o ./nupkg
+```
+
+Then add it as a local NuGet source and install:
+
+```
+dotnet nuget add source <path-to-nupkg> -n CapstoneLocal
+dotnet add package Gee.External.Capstone -s CapstoneLocal
+```
 
 ## Building
-You can build Capstone.NET by opening the Visual Studio solution in _Visual Studio 2017_ or greater, and building from there. The Visual Studio solution has "Debug" and "Release" configurations. Make sure you select the configuration you're targeting before you build.
+You can build Capstone.NET by running:
+
+```
+dotnet build Capstone.NET.sln
+```
+
+The solution has "Debug" and "Release" configurations. Make sure you select the configuration you're targeting before you build.
 
 ## Acknowledgments
 Greetings to my sensi Mohamed Saher ([@halsten](https://twitter.com/@halsten)) who suggested I take on this project and was a major help in debugging some stucture alignment issues, the Capstone team ([@capstone_engine](https://twitter.com/@capstone_engine)) for all the great work they are doing, and Matt Graeber ([@mattifestation](https://twitter.com/@mattifestation)) who wrote the original binding for _Capstone 2_ and whose work was a starting point for this project.
@@ -138,6 +156,7 @@ namespace Example {
                         Console.WriteLine("\t Condition Code = {0}", instruction.Details.ConditionCode);
                         Console.WriteLine("\t Update Flags? = {0}", instruction.Details.UpdateFlags);
                         Console.WriteLine("\t Write Back? = {0}", instruction.Details.WriteBack);
+                        Console.WriteLine("\t Post Index? = {0}", instruction.Details.PostIndex);
 
                         if (!instruction.IsDietModeEnabled) {
                             // ...
@@ -352,9 +371,6 @@ namespace Example {
 
                             Arm64VectorArrangementSpecifier vas = operand.VectorArrangementSpecifier;
                             Console.WriteLine("\t\t\t Vector Arrangement Specifier = {0}", vas);
-
-                            Arm64VectorElementSizeSpecifier vess = operand.VectorElementSizeSpecifier;
-                            Console.WriteLine("\t\t\t Vector Element Size Specifier = {0}", vess);
 
                             var vectorIndex = operand.VectorIndex;
                             Console.WriteLine("\t\t\t Vector Index = {0}", vectorIndex);
