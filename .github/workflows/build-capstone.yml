@@ -1,0 +1,134 @@
+name: Build Capstone Native Libraries
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x86, x64, arm64]
+    steps:
+      - name: Checkout Capstone
+        uses: actions/checkout@v4
+        with:
+          repository: capstone-engine/capstone
+          ref: v5.0.7
+          path: capstone-src
+
+      - name: Configure (x86)
+        if: matrix.arch == 'x86'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -A Win32
+        working-directory: capstone-src
+
+      - name: Configure (x64)
+        if: matrix.arch == 'x64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -A x64
+        working-directory: capstone-src
+
+      - name: Configure (arm64)
+        if: matrix.arch == 'arm64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -A ARM64
+        working-directory: capstone-src
+
+      - name: Build
+        run: cmake --build build --config Release
+        working-directory: capstone-src
+
+      - name: Upload DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}
+          path: capstone-src/build/Release/capstone.dll
+
+  linux:
+    name: Linux
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        arch: [x86, x64, arm, arm64]
+    steps:
+      - name: Checkout Capstone
+        uses: actions/checkout@v4
+        with:
+          repository: capstone-engine/capstone
+          ref: v5.0.7
+          path: capstone-src
+
+      - name: Install cross-compilers
+        if: matrix.arch == 'x86' || matrix.arch == 'arm' || matrix.arch == 'arm64'
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          if [ "${{ matrix.arch }}" = "x86" ]; then
+            sudo apt-get install -y gcc-multilib g++-multilib
+          elif [ "${{ matrix.arch }}" = "arm" ]; then
+            sudo apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+          elif [ "${{ matrix.arch }}" = "arm64" ]; then
+            sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+          fi
+
+      - name: Configure (x64)
+        if: matrix.arch == 'x64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+        working-directory: capstone-src
+
+      - name: Configure (x86)
+        if: matrix.arch == 'x86'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32
+        working-directory: capstone-src
+
+      - name: Configure (arm)
+        if: matrix.arch == 'arm'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -DCMAKE_C_COMPILER=arm-linux-gnueabihf-gcc -DCMAKE_CXX_COMPILER=arm-linux-gnueabihf-g++
+        working-directory: capstone-src
+
+      - name: Configure (arm64)
+        if: matrix.arch == 'arm64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
+        working-directory: capstone-src
+
+      - name: Build
+        run: cmake --build build
+        working-directory: capstone-src
+
+      - name: Upload .so
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+          path: capstone-src/build/libcapstone.so*
+
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        arch: [x64, arm64]
+    steps:
+      - name: Checkout Capstone
+        uses: actions/checkout@v4
+        with:
+          repository: capstone-engine/capstone
+          ref: v5.0.7
+          path: capstone-src
+
+      - name: Configure (x64)
+        if: matrix.arch == 'x64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -DCMAKE_OSX_ARCHITECTURES=x86_64
+        working-directory: capstone-src
+
+      - name: Configure (arm64)
+        if: matrix.arch == 'arm64'
+        run: cmake -B build -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF -DCMAKE_OSX_ARCHITECTURES=arm64
+        working-directory: capstone-src
+
+      - name: Build
+        run: cmake --build build
+        working-directory: capstone-src
+
+      - name: Upload .dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}
+          path: capstone-src/build/libcapstone.dylib
